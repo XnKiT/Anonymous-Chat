@@ -1,0 +1,147 @@
+<%- include('partials/header') %>
+
+
+    <div class="container">
+        <div class="jumbotron centered">
+            <i class="fas fa-key fa-6x"></i>
+            <h1 class="display-3">
+                <%= roomName %>
+            </h1>
+            <h4>Anonymous</h4>
+
+            <div id="messageContainer">
+                <p id="messagesList" class="displayMsg">
+                <p id="loading">Messages are loading...</p>
+                </p>
+            </div>
+            <center>
+                <form onsubmit="return false">
+                    <input id="msgField" type="text" class="form-control text-center" name="message"
+                        placeholder="Enter your message...">
+                    <button id="submit" type="submit" class="btn btn-success send">Send</button>
+                </form>
+
+                <b style="color: rgba(77, 74, 74, 0.562);">It supports various <span><a
+                            style="text-decoration: none;color: green;"
+                            href="https://www.w3schools.com/TAgs/default.asp">HTML ELEMENT</a></span> Tags! eg.
+                    img,audio etc.</b>
+                <p>Please select type of attachment:</p>
+                <form id="radiobtns">
+                    <input type="radio" class="radiobtn" name="attachment" value="">
+                    <label for="text">Text</label>
+                    <input type="radio" class="radiobtn" name="attachment" value='<img  width="320" height="240" src="https://picsum.photos/200" alt="image not loaded.">'>
+                    <label for="image">Image</label>
+                    <input type="radio" class="radiobtn" name="attachment" value='<a href="https://picsum.photos/200" download>Download File</a>'>
+                    <label for="file">File</label>
+                    <input type="radio" class="radiobtn" name="attachment" value='<video width="320" height="240" controls src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4"></video>'>
+                    <label for="video">Video</label>
+                    <br><br>
+                    <h6 style="color:bisque">Only change the src="", eg. src="your link"</h6>
+                </form>
+
+            </center>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+            <script>
+                const msgList = document.getElementById("messagesList");
+                let oldArrayLength = 0;
+                function loadData() {
+                    const URL = "/messages/" + "<%=roomName%>" + "/" + "<%=roomPassword%>";
+
+
+                    const getPosts = async () => {
+
+                        const response = await fetch(URL);
+                        if (!response.ok) {
+                            console.log("error!");
+                        }
+                        const data = await response.json(); // it will wait to resolve.
+                        return data;
+
+                    }
+
+                    getPosts()
+                        .then(mydata => {
+                            // fetchMSG(mydata);
+                            document.getElementById("loading").style.display = "none";
+                            if (oldArrayLength < mydata.length) {
+                                oldArrayLength = mydata.length;
+                                removeAllChildNodes(msgList);
+                                mydata.forEach(element => {
+                                    addmessageToList(element);
+                                });
+                            }
+
+                        })
+                        .catch(error => {
+                            console.log("error.");
+
+                        });
+
+                    function fetchMSG(mydata) {
+
+                    }
+
+
+                }
+                setInterval(() => {
+                    loadData();
+                }, 700);
+
+                loadData();
+
+                function addmessageToList(message) {
+                    const msgNode = document.createElement("p");
+                    msgNode.innerHTML = `🧭 ${message}<hr>`;
+                    msgList.appendChild(msgNode);
+                }
+
+                function removeAllChildNodes(parent) {
+                    while (parent.firstChild) {
+                        parent.removeChild(parent.firstChild);
+                    }
+                }
+                function clearBox() {
+                    document.msgForm.submit();
+                    document.msgForm.reset();
+                }
+                // ajax
+                $(document).ready(function () {
+                    $("#submit").click(function () {
+                        $.post("/chat/<%= roomName %>/<%= roomPassword %>",
+                            {
+                                message: `${document.getElementById("msgField").value}`
+
+                            },
+                            function (data, status) {
+                            });
+                        document.getElementById("msgField").value = "";
+                    });
+                });
+                // user joined the chat.
+                $(document).ready(function () {
+                    $.post("/chat/<%= roomName %>/<%= roomPassword %>",
+                        {
+                            message: "👋 <i>Joined the room !</i>"
+
+                        },
+                        function (data, status) {
+                        });
+
+                });
+
+                document.getElementById('radiobtns').onclick = function () {
+                    var radios = document.getElementsByName('attachment');
+                    for (var radio of radios) {
+                        if (radio.checked) {
+                            document.getElementById("msgField").value = radio.value;
+                        }
+                    }
+                }
+
+
+            </script>
+
+
+
+            <%- include('partials/footer') %>
