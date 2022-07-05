@@ -1,0 +1,18 @@
+{
+    "name": "ChAt",
+    "description": "Simple Chat App For Developers.",
+    "logo": "",
+    "keywords": [
+        "developerchat",
+        "flask",
+        "website",
+        "chat-app"
+    ],
+    "repository": "https://github.com/XnKiT/Anonymous-chat",
+    "website": "xnkit.github.io/k",
+   
+    "buildpacks": [
+        {
+            "url": "heroku/python"
+        } ]
+}
