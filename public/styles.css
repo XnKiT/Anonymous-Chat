@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+#messageContainer{
+    background-color: rgb(63, 59, 59);
+    height: 400px;
+    overflow-y: scroll;
+    margin: 10px;
+    border-radius: 23px;
+    display: flex;
+    flex-direction: column-reverse;
+    /* overflow-y: hidden; */
+    border: 5px solid rgb(0, 0, 0);
+}
+.displayMsg{
+    color: rgb(66, 247, 11);
+    padding: 10px;
+    font-family: 'Ubuntu', Courier, monospace;
+    
+}
+
+
+
+body{
+    background-color: #131a1f;
+    font-family: 'Roboto Mono', Courier, monospace;
+}
+
+.home-logo{
+    display: block;
+    width: 25%;
+    margin: 50px auto;
+    border-radius: 50%;
+}
+
+
+
+button{
+    margin: 30px;
+}
+
+h1{
+    color: rgb(147, 194, 255);
+}
+
+h3{
+    color: antiquewhite;
+    text-align: center;
+}
+
+.room-logo{
+    display: block;
+    width: 25%;
+    margin: 50px auto;
+    border-radius: 23px;
+}
+
+.submit-btn{
+    color: rgb(255, 255, 255);
+    width: 80%;
+    font-weight: bolder;
+    margin: 10px;
+}
+
+.send{
+    display: table;
+    padding: 10px 70px;
+}
+.send:hover{
+    background-color: red;
+}
+#loading{
+    color: #efef;
+}
+b{
+    color: white;
+}
+i{
+    color: yellow;
+    font-style: normal;
+}
+label{
+    color: white;
+}
