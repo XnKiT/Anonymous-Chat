@@ -1,7 +1,0 @@
-{
-  "name": "Chat App",
-  "description": "A Simple Chat App",
-  "repository": "https://github.com/xnkit/anonymous",
-  "logo": "http://xvir.github.io/img/apiai.png",
-  "keywords": ["heroku", "flask"]
-}
